@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://SFX/AudioManager.gd" type="Script" id=1]
+
+[node name="AudioManager" type="Node2D" groups=[
+"audio_manager",
+]]
+script = ExtResource( 1 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="dialogue" type="AudioStreamPlayer2D" parent="."]
+
+[node name="sfx" type="Node2D" parent="."]
+
+[node name="sfx0" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="sfx1" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="sfx2" type="AudioStreamPlayer" parent="sfx"]
+[connection signal="finished" from="Music" to="." method="_on_Music_finished"]
+[connection signal="finished" from="dialogue" to="." method="_on_dialogue_finished"]
+[connection signal="finished" from="sfx/sfx0" to="." method="_on_sfx0_finished"]
+[connection signal="finished" from="sfx/sfx1" to="." method="_on_sfx1_finished"]
+[connection signal="finished" from="sfx/sfx2" to="." method="_on_sfx2_finished"]

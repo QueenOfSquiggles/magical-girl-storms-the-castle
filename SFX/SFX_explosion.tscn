@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/sfx/explosion0_rand.tres" type="AudioStream" id=1]
+[ext_resource path="res://SFX/sfx_base.tscn" type="PackedScene" id=2]
+
+[node name="SFX_explosion" groups=[
+"sfx_sfx",
+] instance=ExtResource( 2 )]
+
+[node name="default_sound" parent="." index="0"]
+stream = ExtResource( 1 )
+bus = "SFX"

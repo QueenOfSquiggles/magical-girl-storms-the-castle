@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Character/CharacterBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Character/Monsters/GoblinBase.gd" type="Script" id=2]
+
+[node name="GoblinBase" groups=[
+"bad",
+] instance=ExtResource( 1 )]
+modulate = Color( 1, 0, 0, 1 )
+script = ExtResource( 2 )
+Speed = 40.0
+Health = 1
+attack_range = 16.0
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="." index="2"]
+rect = Rect2( -8, -14, 16, 16 )
+process_parent = true
+physics_process_parent = true

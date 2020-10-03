@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Character/CharacterBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Character/NPC/NPC_Base.gd" type="Script" id=2]
+
+[node name="NPC_Base" groups=[
+"good",
+"npc",
+] instance=ExtResource( 1 )]
+modulate = Color( 0.215686, 0.796078, 0.0509804, 1 )
+script = ExtResource( 2 )
+Speed = 60.0
+Armour = 2
+
+[node name="timer" type="Timer" parent="." index="2"]
+
+[node name="attack_timer" type="Timer" parent="." index="3"]
+[connection signal="timeout" from="timer" to="." method="_on_check_for_new_pos_timeout"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

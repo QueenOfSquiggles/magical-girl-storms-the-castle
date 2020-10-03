@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Character/NPC/NPC Defend Point.gd" type="Script" id=1]
+
+[node name="NPC Defend Point" type="Position2D" groups=[
+"npc_pos",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "a position for specfic NPCs to move to and defend from
+"
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+rect = Rect2( -8, -8, 16, 16 )
+
+[node name="update_timer" type="Timer" parent="."]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="update_timer" to="." method="_on_position_update_timer_timeout"]
