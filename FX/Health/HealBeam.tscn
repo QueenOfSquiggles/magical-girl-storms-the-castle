@@ -1,0 +1,73 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0003.png" type="Texture" id=1]
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0005.png" type="Texture" id=2]
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0002.png" type="Texture" id=3]
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0001.png" type="Texture" id=4]
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0004.png" type="Texture" id=5]
+[ext_resource path="res://Assets/heal_beam/start_end/heal_beam_start_end0000.png" type="Texture" id=6]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0002.png" type="Texture" id=7]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0005.png" type="Texture" id=8]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0004.png" type="Texture" id=9]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0003.png" type="Texture" id=10]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0006.png" type="Texture" id=11]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0000.png" type="Texture" id=12]
+[ext_resource path="res://Assets/heal_beam/beam/heal_beam0001.png" type="Texture" id=13]
+[ext_resource path="res://FX/Health/HealBeam.gd" type="Script" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AnimatedTexture" id=2]
+flags = 2
+frames = 7
+fps = 5.0
+frame_0/texture = ExtResource( 12 )
+frame_1/texture = ExtResource( 13 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 7 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 10 )
+frame_3/delay_sec = 0.0
+frame_4/texture = ExtResource( 9 )
+frame_4/delay_sec = 0.0
+frame_5/texture = ExtResource( 8 )
+frame_5/delay_sec = 0.0
+frame_6/texture = ExtResource( 11 )
+frame_6/delay_sec = 0.0
+
+[node name="HealBeam" type="Node2D"]
+position = Vector2( 0, 0.25 )
+z_index = 4
+script = ExtResource( 14 )
+target_pos = Vector2( 202.959, 50 )
+
+[node name="start" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 4
+playing = true
+
+[node name="beam" type="Sprite" parent="."]
+position = Vector2( 0, -0.117981 )
+z_index = -1
+texture = SubResource( 2 )
+centered = false
+offset = Vector2( 0, -4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 100, 8 )
+
+[node name="end" type="AnimatedSprite" parent="."]
+position = Vector2( 100, 0 )
+frames = SubResource( 1 )
+frame = 3
+playing = true
+
+[node name="raycast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 100, 0 )
+collision_mask = 2

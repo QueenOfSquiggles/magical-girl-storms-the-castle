@@ -2,8 +2,6 @@ extends GoblinState
 
 class_name GoblinState_Idle
 
-const _MinIdleTime = 1.0
-const _MaxIdleTime = 5.0
 
 var timer = 0.0
 
@@ -13,8 +11,9 @@ func update(delta : float, cur_target : CharacterBase, data : Dictionary, owner)
 		data.new_state = owner.state_attack
 
 func on_state_enter(owner):
-	timer = rand_range(_MinIdleTime, _MaxIdleTime)
+	timer = rand_range(0.25, 1.5)
+	owner.anim.play("Idle")
 	
 func on_state_exit(owner):
-	pass
+	owner.anim.play("Walk")
 	

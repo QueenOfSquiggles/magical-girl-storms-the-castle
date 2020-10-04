@@ -20,9 +20,12 @@ var state : GoblinState
 var cur_target : CharacterBase
 var state_data : Dictionary = {}
 
+onready var anim = $AnimatedSprite
+
 func _ready():
 	._ready()
-	set_state(state_attack)
+	anim.play("Walk")
+	set_state(state_idle)
 	.connect("on_death", self, "on_gob_die")
 	.connect("on_hit", self, "on_gob_hit")
 
@@ -34,21 +37,6 @@ func _process(delta):
 		if state_data.has("new_state"):
 			self.set_state(state_data.new_state)
 			state_data.clear()
-	manage_state()
-
-
-func manage_state():
-	pass
-	
-func manage_target():
-	if cur_target:
-		pass
-	else:
-		var character = GoblinAttacks.find_target(self)
-		if character:
-			cur_target = character
-		else:
-			set_state(state_idle)
 
 func clear_target():
 	cur_target = null

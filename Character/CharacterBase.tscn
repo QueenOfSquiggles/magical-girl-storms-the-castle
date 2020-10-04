@@ -1,23 +1,40 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/base_char16x.png" type="Texture" id=1]
 [ext_resource path="res://Character/CharacterBase.gd" type="Script" id=2]
 [ext_resource path="res://Assets/sfx/blip0.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/sfx/hit0.wav" type="AudioStream" id=4]
+[ext_resource path="res://Character/Health Bar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/sfx/heal0.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/sfx/death0.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 2.03255
 height = 11.3213
 
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="CharacterBase" type="KinematicBody2D"]
 script = ExtResource( 2 )
 sfx_damage = ExtResource( 4 )
 sfx_attack = ExtResource( 3 )
+sfx_footstep = ExtResource( 3 )
+sfx_heal = ExtResource( 6 )
+sfx_die = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -7.11696 )
-texture = ExtResource( 1 )
+frames = SubResource( 2 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 5 )]
+position = Vector2( -8, -20 )

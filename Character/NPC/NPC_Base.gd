@@ -3,7 +3,7 @@ extends CharacterBase
 class_name NPCBase
 
 export (float) var refresh_time := 0.75
-export (float) var attack_rate := 1.5
+export (float) var attack_rate := 3.0
 export (int) var attack_damage := 1
 export  (float) var attack_range := 16.0
 
@@ -16,11 +16,20 @@ var _can_attack := true
 onready var refreshTimer = $timer
 onready var attackTimer = $attack_timer
 
+onready var anim : AnimatedSprite = $Sprite
 
 func _ready():
 	._ready()
 	refreshTimer.wait_time = refresh_time
 	attackTimer.wait_time = attack_rate
+	.connect("on_hit", self, "on_npc_damaged")
+	.connect("on_death", self, "on_npc_die")
+
+func on_npc_die():
+	queue_free()
+	
+func on_npc_damaged(dmg):
+	print("NPC[",name,"] took ", dmg, " points of damage")	
 	
 func _process(_delta):
 	._process(_delta)
@@ -30,9 +39,13 @@ func update_move_intent():
 	if _cur_target:
 		var dir = _cur_target - global_position
 		if dir.length() > _MaxAcceptableDistance:
+			if anim.animation != "Walk":
+				anim.play("Walk")
 			move_intent = dir.normalized()
 		else:
 			move_intent = Vector2.ZERO
+			if anim.animation != "Idle":
+				anim.play("Idle")
 		if not refreshTimer.time_left > 0:
 			refreshTimer.start()
 	else:

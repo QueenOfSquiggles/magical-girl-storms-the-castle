@@ -6,7 +6,6 @@ class_name GoblinState_Attack
 func update(delta : float,cur_target : CharacterBase, data : Dictionary, owner):
 	data.motion = Vector2.ZERO
 	if not cur_target:
-		owner.manage_target()
 		return
 	var dir = (cur_target.global_position - owner.global_position) as Vector2
 	if dir.length() > owner.attack_range:
@@ -17,8 +16,7 @@ func update(delta : float,cur_target : CharacterBase, data : Dictionary, owner):
 		data.new_state = owner.state_retreat
 
 func on_state_enter(owner):
-	GoblinAttacks.add_attacker(owner)
-	#owner.manage_target()
+	owner.cur_target = GoblinAttacks.add_attacker(owner)
 	
 	
 func on_state_exit(owner):

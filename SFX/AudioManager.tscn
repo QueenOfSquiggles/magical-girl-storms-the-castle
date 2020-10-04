@@ -8,16 +8,20 @@
 script = ExtResource( 1 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+bus = "Music"
 
 [node name="dialogue" type="AudioStreamPlayer2D" parent="."]
 
 [node name="sfx" type="Node2D" parent="."]
 
 [node name="sfx0" type="AudioStreamPlayer" parent="sfx"]
+bus = "SFX"
 
 [node name="sfx1" type="AudioStreamPlayer" parent="sfx"]
+bus = "SFX"
 
 [node name="sfx2" type="AudioStreamPlayer" parent="sfx"]
+bus = "SFX"
 [connection signal="finished" from="Music" to="." method="_on_Music_finished"]
 [connection signal="finished" from="dialogue" to="." method="_on_dialogue_finished"]
 [connection signal="finished" from="sfx/sfx0" to="." method="_on_sfx0_finished"]

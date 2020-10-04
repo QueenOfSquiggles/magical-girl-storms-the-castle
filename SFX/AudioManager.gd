@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name AudioManager
-
 onready var p_music = $Music
 onready var p_dialogue = $dialogue
 onready var sfx = $sfx
@@ -25,7 +23,6 @@ func play_music(track : AudioStream, priority : int = 0):
 
 func play_sfx(track : AudioStream, priority : int = 0):
 	if not track: return
-	print("Attempting to play ", track.resource_name)
 	for i in range(sfx.get_children().size()):
 		var p = sfx.get_child(i) as AudioStreamPlayer
 		if p.playing:
@@ -36,8 +33,8 @@ func play_sfx(track : AudioStream, priority : int = 0):
 				priorities.sfx[i] = priority
 				break
 		else:
-			p_music.stream = track
-			p_music.play()
+			p.stream = track
+			p.play()
 			priorities.sfx[i] = priority
 			break
 	

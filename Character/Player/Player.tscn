@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Character/CharacterBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Character/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Character/Health Bar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://FX/Health/HealBeam.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 64.0
 
 [node name="Player" groups=[
 "good",
@@ -9,9 +14,41 @@
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 Speed = 50.0
+Mana_recharge = 1.5
 
 [node name="Sprite" parent="." index="1"]
 modulate = Color( 0.133333, 0.901961, 0.866667, 1 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 current = true
+
+[node name="Area2D" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="." index="5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar" parent="Control" index="0" instance=ExtResource( 3 )]
+position = Vector2( -116.621, -76.2236 )
+scale = Vector2( 2, 2 )
+colour_high = Color( 0, 0.788235, 1, 1 )
+colour_medium = Color( 0.0627451, 0.0235294, 0.752941, 1 )
+colour_low = Color( 0.541176, 0.121569, 0.729412, 1 )
+medium_range = 0.75
+low_range = 0.3
+
+[node name="cooldown" type="Timer" parent="." index="6"]
+wait_time = 0.1
+
+[node name="HealBeam" parent="." index="7" instance=ExtResource( 4 )]
+
+[node name="beam_fade_timer" type="Timer" parent="HealBeam" index="4"]
+wait_time = 0.01
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="HealBeam/beam_fade_timer" to="." method="_on_beam_fade_timer_timeout"]
