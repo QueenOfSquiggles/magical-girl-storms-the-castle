@@ -24,7 +24,7 @@ beam_sfx = ExtResource( 6 )
 [node name="Sprite" parent="." index="1"]
 modulate = Color( 0.133333, 0.901961, 0.866667, 1 )
 animation = "Idle"
-frame = 5
+frame = 3
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="." index="2" groups=[

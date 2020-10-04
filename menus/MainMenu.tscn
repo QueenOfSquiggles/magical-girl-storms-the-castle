@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://menus/base_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Assets/base_tileset.png" type="Texture" id=2]
+[ext_resource path="res://Assets/menu_image.png" type="Texture" id=2]
 [ext_resource path="res://menus/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://Assets/sfx/music/main_menu_track.ogg" type="AudioStream" id=4]
 
@@ -19,16 +19,16 @@ __meta__ = {
 music_bg = ExtResource( 4 )
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
-margin_left = 18.0
-margin_top = 27.0
-margin_right = 222.0
-margin_bottom = 149.0
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 234.0
+margin_bottom = 168.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VBoxContainer" parent="HSplitContainer"]
 margin_right = 100.0
-margin_bottom = 122.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -37,7 +37,7 @@ margin_right = 100.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 1
 theme = ExtResource( 1 )
 text = "Magical Girl Storms the Castle!"
 autowrap = true
@@ -45,28 +45,32 @@ autowrap = true
 [node name="btnPlay" type="Button" parent="HSplitContainer/VSplitContainer"]
 margin_top = 51.0
 margin_right = 100.0
-margin_bottom = 72.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 0, 35 )
+size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Play"
 
 [node name="btnOptions" type="Button" parent="HSplitContainer/VSplitContainer"]
-margin_top = 76.0
+margin_top = 90.0
 margin_right = 100.0
-margin_bottom = 97.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Options"
 
 [node name="btnOptionsQuit" type="Button" parent="HSplitContainer/VSplitContainer"]
-margin_top = 101.0
+margin_top = 115.0
 margin_right = 100.0
-margin_bottom = 122.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
 theme = ExtResource( 1 )
 text = "Quit"
 
 [node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
 margin_left = 108.0
-margin_right = 204.0
-margin_bottom = 122.0
+margin_right = 228.0
+margin_bottom = 160.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )

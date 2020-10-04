@@ -48,7 +48,7 @@ npc_death_track = ExtResource( 21 )
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 8
+frame = 4
 playing = true
 
 [node name="timer" type="Timer" parent="." index="2"]
