@@ -52,8 +52,9 @@ animations = [ {
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 Speed = 40.0
-Health = 1
+Health = 2
 attack_range = 16.0
+damage = 2
 
 [node name="Sprite" parent="." index="1"]
 visible = false
@@ -63,5 +64,5 @@ modulate = Color( 0.858824, 0.0588235, 0.0588235, 1 )
 position = Vector2( 0, -8 )
 frames = SubResource( 1 )
 animation = "Walk"
-frame = 12
+frame = 14
 playing = true

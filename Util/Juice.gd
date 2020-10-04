@@ -5,8 +5,8 @@ var blood_spray = preload("res://FX/Damage/FX_Blood.tscn")
 var heal_circle = preload("res://FX/Health/HealthCircle.tscn")
 var heal_particle = preload("res://FX/Health/HealthParticle.tscn")
 
-func camera_shake():
-	pass
+func camera_shake(duration := 0.5, frequency := 15.0, amplitude:=16.0, priority := 0):
+	ScreenShake.start(duration, frequency, amplitude, priority)
 
 func freeze_frame(ms = 25):
 	pass

@@ -2,6 +2,8 @@ extends CharacterBase
 
 class_name NPCBase
 
+export (AudioStream) var npc_death_track : AudioStream
+
 export (float) var refresh_time := 0.75
 export (float) var attack_rate := 3.0
 export (int) var attack_damage := 1
@@ -46,6 +48,7 @@ func update_move_intent():
 			move_intent = Vector2.ZERO
 			if anim.animation != "Idle":
 				anim.play("Idle")
+				AudioManager.play_sfx(sfx_footstep)
 		if not refreshTimer.time_left > 0:
 			refreshTimer.start()
 	else:
@@ -93,3 +96,11 @@ func try_attack_nearest():
 
 func _on_attack_timer_timeout():
 	_can_attack = true
+
+
+func _on_NPC_Base_on_death():
+	AudioManager.play_sfx(npc_death_track)
+
+
+func _on_NPC_Base_on_hit(dmg):
+	AudioManager.play_sfx(self.sfx_damage)

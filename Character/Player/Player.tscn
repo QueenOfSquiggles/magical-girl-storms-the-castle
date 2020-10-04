@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Character/CharacterBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Character/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Character/Health Bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://FX/Health/HealBeam.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Character/Player/SelectionChevron.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/sfx/laser0.ogg" type="AudioStream" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 64.0
@@ -15,11 +17,19 @@ radius = 64.0
 script = ExtResource( 2 )
 Speed = 50.0
 Mana_recharge = 1.5
+Cost_HealChannel = 7
+Cost_ActivateUlt = 0
+beam_sfx = ExtResource( 6 )
 
 [node name="Sprite" parent="." index="1"]
 modulate = Color( 0.133333, 0.901961, 0.866667, 1 )
+animation = "Idle"
+frame = 5
+playing = true
 
-[node name="Camera2D" type="Camera2D" parent="." index="2"]
+[node name="Camera2D" type="Camera2D" parent="." index="2" groups=[
+"camera",
+]]
 current = true
 
 [node name="Area2D" type="Area2D" parent="." index="4"]
@@ -35,7 +45,7 @@ __meta__ = {
 }
 
 [node name="ManaBar" parent="Control" index="0" instance=ExtResource( 3 )]
-position = Vector2( -116.621, -76.2236 )
+position = Vector2( -116.621, -75.9736 )
 scale = Vector2( 2, 2 )
 colour_high = Color( 0, 0.788235, 1, 1 )
 colour_medium = Color( 0.0627451, 0.0235294, 0.752941, 1 )
@@ -50,5 +60,7 @@ wait_time = 0.1
 
 [node name="beam_fade_timer" type="Timer" parent="HealBeam" index="4"]
 wait_time = 0.01
+
+[node name="SelectionChevron" parent="." index="8" instance=ExtResource( 5 )]
 [connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="timeout" from="HealBeam/beam_fade_timer" to="." method="_on_beam_fade_timer_timeout"]

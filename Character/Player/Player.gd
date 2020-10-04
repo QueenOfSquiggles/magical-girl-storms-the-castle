@@ -28,6 +28,8 @@ export (int) var Eff_HealChannel := 1
 
 export (int) var Range_HealArea := 64
 
+export (AudioStream) var beam_sfx : AudioStream
+
 var cur_mana : int
 
 onready var mana_bar = $Control/ManaBar
@@ -36,12 +38,18 @@ onready var action_cooldown = $cooldown
 onready var healbeam = $HealBeam
 onready var healbeam_fade = $HealBeam/beam_fade_timer
 
+onready var selection_chevron = $SelectionChevron
+
+onready var anim = $Sprite
+
 func _ready():
 	._ready()
 	cur_mana = Mana
 	mana_bar.init(cur_mana, Mana)
 	Util.player = self
 	healbeam.hide()
+	.connect("on_death", self, "player_game_over")
+	
 	
 func _process(delta):
 	._process(delta)
@@ -51,8 +59,12 @@ func update_move_intent():
 	if cur_action == Action.None:
 		move_intent.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		move_intent.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		if anim.animation == "Idle":
+			anim.play("Walk")
 	else:
-		move_intent = Vector2.ZERO		
+		move_intent = Vector2.ZERO
+		if anim.animation == "Walk":
+			anim.play("Idle")
 
 
 func update_action_intent(delta):
@@ -67,7 +79,9 @@ func update_action_intent(delta):
 			do_basic_heal(delta)
 		else:
 			cur_action = Action.None
-	healbeam.update_pos(global_position, get_nearest_goodie().global_position)
+	var near = get_nearest_goodie().global_position
+	healbeam.update_pos(global_position, near)
+	selection_chevron.global_position = near
 	if cur_action == Action.None and cur_mana < Mana:
 		recharge(delta)
 
@@ -85,6 +99,7 @@ func do_basic_heal(delta):
 		cur_action = Action.HealBasic
 		var g = get_nearest_goodie()
 		g.deal_health(Eff_HealBasic)
+		Juice.camera_shake(Time_HealBasic, 7.5, 7.0, 0.0)
 
 func do_area_heal(delta):
 	if lock_action(Time_HealArea, Cost_HealArea):
@@ -92,6 +107,7 @@ func do_area_heal(delta):
 		var gs = get_all_goodies_in_range(Range_HealArea)
 		for g in gs:
 			(g as CharacterBase).deal_health(Eff_HealArea)
+		Juice.camera_shake(Time_HealArea, 10.0, 10.0, 1.0)
 	
 func do_channel_heal(delta):
 	if lock_action(Time_HealChannel, Cost_HealChannel):
@@ -100,6 +116,8 @@ func do_channel_heal(delta):
 		healbeam.show()
 		#healbeam.set_target(g.global_position)
 		healbeam_fade.start(Time_HealChannel+0.06)
+		Juice.camera_shake(Time_HealChannel, 15.0, 4.0, 0.0)
+		AudioManager.play_sfx(beam_sfx)
 
 func do_activate_ult(delta):
 	if lock_action(Time_ActivateUlt, Cost_ActivateUlt):
@@ -136,7 +154,6 @@ func get_nearest_goodie() -> CharacterBase:
 		if diff.length_squared() < mindist:
 			mindist = diff.length_squared()
 			cur = g
-		
 	return cur
 
 func get_all_goodies_in_range(ran:float) -> Array:
@@ -157,3 +174,7 @@ func get_goodies()->Array:
 
 func _on_beam_fade_timer_timeout():
 	healbeam.hide()
+
+func player_game_over():
+	get_tree().change_scene("res://menus/GameOver Screen.tscn")
+	AudioManager.stop_all()

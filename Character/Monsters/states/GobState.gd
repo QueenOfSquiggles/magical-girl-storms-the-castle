@@ -9,3 +9,6 @@ func on_state_enter(owner):
 func on_state_exit(owner):
 	print("state exited")
 	
+func on_hit(owner):
+	pass
+	

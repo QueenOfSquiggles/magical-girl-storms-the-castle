@@ -6,10 +6,15 @@ class_name GoblinState_Attack
 func update(delta : float,cur_target : CharacterBase, data : Dictionary, owner):
 	data.motion = Vector2.ZERO
 	if not cur_target:
+		data.new_state = owner.state_idle
 		return
 	var dir = (cur_target.global_position - owner.global_position) as Vector2
 	if dir.length() > owner.attack_range:
-		data.motion = dir.normalized()
+		if data.has("last_chance") && data.last_chance && dir.length() > owner.attack_range * 2:
+			data.new_state = owner.state_retreat
+		else:
+			data.motion = dir.normalized()
+		
 	else:
 		cur_target.deal_damage(owner.damage)
 		data.motion = Vector2.ZERO
@@ -21,6 +26,8 @@ func on_state_enter(owner):
 	
 func on_state_exit(owner):
 	owner.emit_signal("token_consumed", owner)
-	#owner.clear_target()
 	pass
+
+func on_hit(owner):
+	owner.state_data.last_chance = true
 	

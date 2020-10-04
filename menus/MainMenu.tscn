@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://menus/base_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/base_tileset.png" type="Texture" id=2]
 [ext_resource path="res://menus/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://Assets/sfx/music/main_menu_track.ogg" type="AudioStream" id=4]
 
 [node name="Main Menu" type="CenterContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 70.0
+margin_bottom = 16.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 1 )
@@ -15,58 +16,57 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+music_bg = ExtResource( 4 )
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
-margin_left = 2.0
-margin_top = 6.0
-margin_right = 308.0
-margin_bottom = 154.0
+margin_left = 18.0
+margin_top = 27.0
+margin_right = 222.0
+margin_bottom = 149.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VBoxContainer" parent="HSplitContainer"]
-margin_right = 202.0
-margin_bottom = 148.0
+margin_right = 100.0
+margin_bottom = 122.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="HSplitContainer/VSplitContainer"]
-margin_right = 202.0
-margin_bottom = 19.0
+margin_right = 100.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Magical Girl Storms the Castle!"
-
-[node name="Spacer" type="Control" parent="HSplitContainer/VSplitContainer"]
-margin_top = 23.0
-margin_right = 202.0
-margin_bottom = 73.0
-rect_min_size = Vector2( 0, 50 )
+autowrap = true
 
 [node name="btnPlay" type="Button" parent="HSplitContainer/VSplitContainer"]
-margin_top = 77.0
-margin_right = 202.0
-margin_bottom = 98.0
+margin_top = 51.0
+margin_right = 100.0
+margin_bottom = 72.0
 theme = ExtResource( 1 )
 text = "Play"
 
 [node name="btnOptions" type="Button" parent="HSplitContainer/VSplitContainer"]
-margin_top = 102.0
-margin_right = 202.0
-margin_bottom = 123.0
+margin_top = 76.0
+margin_right = 100.0
+margin_bottom = 97.0
 theme = ExtResource( 1 )
 text = "Options"
 
 [node name="btnOptionsQuit" type="Button" parent="HSplitContainer/VSplitContainer"]
-margin_top = 127.0
-margin_right = 202.0
-margin_bottom = 148.0
+margin_top = 101.0
+margin_right = 100.0
+margin_bottom = 122.0
 theme = ExtResource( 1 )
 text = "Quit"
 
 [node name="TextureRect" type="TextureRect" parent="HSplitContainer"]
-margin_left = 210.0
-margin_right = 306.0
-margin_bottom = 148.0
+margin_left = 108.0
+margin_right = 204.0
+margin_bottom = 122.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )

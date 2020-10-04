@@ -72,6 +72,7 @@ config/name="Magical Girl Storms The Castle"
 config/description="As a magical girl, you must help your comrades storm a castle overrun by goblins! You can heal your friends as best you can, but the goblins are many"
 run/main_scene="res://menus/MainMenu.tscn"
 boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -81,10 +82,7 @@ Util="*res://Util/Util.gd"
 GoblinAttacks="*res://Util/GoblinAttacks.gd"
 Config="*res://Util/Config.gd"
 AudioManager="*res://SFX/AudioManager.tscn"
-
-[debug]
-
-settings/stdout/print_fps=true
+ScreenShake="*res://FX/Juice/ScreenShake.tscn"
 
 [display]
 

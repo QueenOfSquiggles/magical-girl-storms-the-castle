@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://menus/base_theme.tres" type="Theme" id=1]
+[ext_resource path="res://menus/GameOverLabel.gd" type="Script" id=2]
+[ext_resource path="res://Assets/sfx/music/game_over_track.ogg" type="AudioStream" id=3]
+
+[node name="GameOver Screen" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 68.0
+margin_top = 70.0
+margin_right = 172.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 104.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 34, 9 )
+text = "A WINNER IS YOU"
+script = ExtResource( 2 )
+music_fx = ExtResource( 3 )
+
+[node name="Display" type="Tween" parent="VBoxContainer/Label"]
+
+[node name="Shake" type="Tween" parent="VBoxContainer/Label"]
+
+[node name="WaitTime" type="Timer" parent="VBoxContainer/Label"]
+[connection signal="tween_all_completed" from="VBoxContainer/Label/Display" to="VBoxContainer/Label" method="_on_Display_tween_all_completed"]
+[connection signal="tween_all_completed" from="VBoxContainer/Label/Shake" to="VBoxContainer/Label" method="_on_Shake_tween_all_completed"]
+[connection signal="timeout" from="VBoxContainer/Label/WaitTime" to="VBoxContainer/Label" method="_on_WaitTime_timeout"]

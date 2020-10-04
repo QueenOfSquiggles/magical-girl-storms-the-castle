@@ -49,7 +49,9 @@ func set_state(state):
 		self.state.on_state_enter(self)
 
 func on_gob_die():
+	if state == state_attack:
+		emit_signal("token_consumed")
 	queue_free()
 	
 func on_gob_hit(dmg):
-	pass
+	state.on_hit(self)
