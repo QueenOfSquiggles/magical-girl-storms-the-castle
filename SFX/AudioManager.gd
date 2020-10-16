@@ -23,6 +23,8 @@ func play_music(track : AudioStream, priority : int = 0):
 
 func play_sfx(track : AudioStream, priority : int = 0):
 	if not track: return
+	if track is AudioStreamOGGVorbis:
+		(track as AudioStreamOGGVorbis).loop = false
 	for i in range(sfx.get_children().size()):
 		var p = sfx.get_child(i) as AudioStreamPlayer
 		if p.playing:
@@ -67,19 +69,23 @@ func stop_sfx():
 func _on_Music_finished():
 	music_position = 0.0
 	priorities.music = 0
+	p_music.stop()
 
 
 func _on_dialogue_finished():
 	priorities.dialogue = 0
+	p_dialogue.stop()
 
 
 func _on_sfx0_finished():
 	priorities.sfx[0] = 0
-
+	sfx.get_child(0).stop()
 
 func _on_sfx1_finished():
 	priorities.sfx[1] = 0
+	sfx.get_child(1).stop()
 
 
 func _on_sfx2_finished():
 	priorities.sfx[2] = 0
+	sfx.get_child(2).stop()

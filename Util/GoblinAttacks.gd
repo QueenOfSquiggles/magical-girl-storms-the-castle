@@ -26,7 +26,7 @@ func add_attacker(gob) -> CharacterBase:
 		gob.connect("token_consumed", self, "on_token_consumed")
 		_attack_tokens += 1
 		cur_attackers.append(gob)
-		print("token given")
+		#print("token given")
 		debug_print()
 		return get_rand_target()
 	return null
@@ -40,9 +40,10 @@ func on_token_consumed(gob):
 	_attack_tokens -= 1
 	_attack_tokens = max(_attack_tokens, 0)
 	cur_attackers.erase(gob)
-	print("token consumed by ", gob.name)
+	#print("token consumed by ", gob.name)
 	debug_print()
 	
 
 func debug_print():
-	print("Max Tokens (",Max_Attackers,") : Current Tokens (",_attack_tokens , ") : Current Attackers (", cur_attackers.size(), ")")
+	pass
+	#print("Max Tokens (",Max_Attackers,") : Current Tokens (",_attack_tokens , ") : Current Attackers (", cur_attackers.size(), ")")

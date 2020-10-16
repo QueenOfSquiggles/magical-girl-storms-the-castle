@@ -37,6 +37,7 @@ onready var action_cooldown = $cooldown
 
 onready var healbeam = $HealBeam
 onready var healbeam_fade = $HealBeam/beam_fade_timer
+onready var healbeam_heal_timer = $BeamTimer
 
 onready var selection_chevron = $SelectionChevron
 
@@ -49,6 +50,8 @@ func _ready():
 	Util.player = self
 	healbeam.hide()
 	.connect("on_death", self, "player_game_over")
+	healbeam_heal_timer.wait_time = Time_HealChannel * 2
+	healbeam_heal_timer.connect("timeout", self, "on_beam_tick")
 	
 	
 func _process(delta):
@@ -111,13 +114,11 @@ func do_area_heal(delta):
 	
 func do_channel_heal(delta):
 	if lock_action(Time_HealChannel, Cost_HealChannel):
-		var g = get_nearest_goodie()
-		g.deal_health(Eff_HealBasic)
+		if cur_action != Action.HealChannel:
+			healbeam_heal_timer.start()
+		cur_action = Action.HealChannel
 		healbeam.show()
-		#healbeam.set_target(g.global_position)
 		healbeam_fade.start(Time_HealChannel+0.06)
-		Juice.camera_shake(Time_HealChannel, 15.0, 4.0, 0.0)
-		AudioManager.play_sfx(beam_sfx)
 
 func do_activate_ult(delta):
 	if lock_action(Time_ActivateUlt, Cost_ActivateUlt):
@@ -171,9 +172,20 @@ func get_all_goodies_in_range(ran:float) -> Array:
 func get_goodies()->Array:
 	return get_tree().get_nodes_in_group("good")
 
+func on_beam_tick():
+	Juice.camera_shake(Time_HealChannel, 0.1, 1.5, 0.0)
+	AudioManager.play_sfx(beam_sfx)
+	var g = get_nearest_goodie()
+	g.deal_health(Eff_HealBasic)
+	print("Heal tick")
+	if cur_action == Action.HealChannel:
+		healbeam_heal_timer.start()
+
 
 func _on_beam_fade_timer_timeout():
 	healbeam.hide()
+	healbeam_heal_timer.stop()
+	
 
 func player_game_over():
 	get_tree().change_scene("res://menus/GameOver Screen.tscn")

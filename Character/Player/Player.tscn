@@ -17,14 +17,13 @@ radius = 64.0
 script = ExtResource( 2 )
 Speed = 50.0
 Mana_recharge = 1.5
-Cost_HealChannel = 7
+Cost_HealChannel = 4
 Cost_ActivateUlt = 0
 beam_sfx = ExtResource( 6 )
 
 [node name="Sprite" parent="." index="1"]
-modulate = Color( 0.133333, 0.901961, 0.866667, 1 )
 animation = "Idle"
-frame = 3
+frame = 9
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="." index="2" groups=[
@@ -62,5 +61,7 @@ wait_time = 0.1
 wait_time = 0.01
 
 [node name="SelectionChevron" parent="." index="8" instance=ExtResource( 5 )]
+
+[node name="BeamTimer" type="Timer" parent="." index="9"]
 [connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="timeout" from="HealBeam/beam_fade_timer" to="." method="_on_beam_fade_timer_timeout"]
